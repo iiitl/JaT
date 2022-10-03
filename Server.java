@@ -13,6 +13,10 @@ public class Server implements Runnable {
     ExecutorService pool;
     // ArrayList<String> randomNames = ["giant giraffe", "curious cuttlefish"];
 
+    /**
+     * The constructor for Server class
+     * @param portNumber The port to start the server in
+     */
     public Server(int portNumber) {
         clients = new ArrayList<>();
         this.portNumber = portNumber;
@@ -38,6 +42,10 @@ public class Server implements Runnable {
         }
     }
 
+    /**
+     * Calls `sendMessage` of all ClientHandlers in the clients array list with the message param as input
+     * @param message The message to broadcast
+     */
     public void broadcast(String message) {
         for (ClientHandler client : clients) {
             if (client != null) {
@@ -46,6 +54,9 @@ public class Server implements Runnable {
         }
     }
 
+    /**
+     * Handles the client connections
+     */
     class ClientHandler implements Runnable {
         Socket client;
         BufferedReader in; // Get stream from the socket
@@ -53,6 +64,10 @@ public class Server implements Runnable {
         String endCodeWord = "OVER AND OUT";
         String username;
 
+        /**
+         * Constructor of the ClientHandler class
+         * @param client The socket (connection) to create the handler for
+         */
         public ClientHandler(Socket client) {
             this.client = client;
         }
@@ -88,11 +103,20 @@ public class Server implements Runnable {
             }
         }
 
+        /**
+         * Method to handle commands sent by the client
+         * @param message The command string
+         */
         private void handleCommands(String message) {
             // Do nothing for now
             return;
         }
 
+        /**
+         * Checks if the userName is valid
+         * @param userName The username to be checked
+         * @return true if the username is valid else false
+         */
         public boolean validNickname(String userName) {
             // Handle usernames
             // Doesn't start with '\' and not ""
@@ -109,6 +133,9 @@ public class Server implements Runnable {
             return true;
         }
 
+        /**
+         * Method to close all the resources and sockets of ClientHandler safely and return from the main loop
+         */
         public void exit() {
             broadcast(username + " left the chat");
             try {
@@ -123,11 +150,18 @@ public class Server implements Runnable {
             }
         }
 
+        /**
+         * To send message through the socket
+         * @param message The message string
+         */
         public void sendMessage(String message) {
             out.println(message);
         }
     }
 
+    /**
+     * Close all resources and finally the server
+     */
     public void exit() {
         exit = true;
         try {

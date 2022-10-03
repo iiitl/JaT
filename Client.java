@@ -10,6 +10,10 @@ public class Client implements Runnable {
     boolean exit;
     String endCodeWord = "OVER AND OUT";
 
+    /**
+     * @param hostName The hostname
+     * @param portNumber The port number to connect to
+     */
     public Client(String hostName, int portNumber) {
         this.hostName = hostName;
         this.portNumber = portNumber;
@@ -35,6 +39,9 @@ public class Client implements Runnable {
         }
     }
 
+    /**
+     * Handles all the incoming and outgoing message traffic through the socket
+     */
     class MessageHandler implements Runnable {
         public void run() {
             try {
@@ -65,6 +72,9 @@ public class Client implements Runnable {
         }
     }
 
+    /**
+     * Close the resources and socket
+     */
     public void exit() {
         out.println("has disconnected");
         exit = true;
