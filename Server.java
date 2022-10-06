@@ -144,6 +144,8 @@ public class Server implements Runnable {
                 if (!client.isClosed()) {
                     client.close();
                 }
+                // TODO: Remove the ClientHandle instance from the array
+                clients.remove(this);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
