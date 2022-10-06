@@ -2,21 +2,30 @@
 
 - After forking and cloning this repository to your local machine, open the project folder in your favourite code editor.
 
-### To run the server
+### Walkie Talkie System
+
+- Open 2 terminal windows. In one, start the server by running `java Server.java`. In the other run the client by running `java Client.java`
+- Chat from both the client and server side, by using the appropriate terminal windows
+
+![Walkie Talkie Example](./walkieTalkieExample.png)
+
+### Synchronized Chat
+
+#### To run the server
 
 ```bash
-java ./Server.java portNumber
+java ./syncChat/Server.java <portNumber>
 ```
 
-### To join as a client
+#### To join as a client
 
 ```bash
-java ./Client.java hostname portNumber
+java ./syncChat/Client.java <hostname> <portNumber>
 ```
 
 Example:
 
-![Walkie Talkie Example](./walkieTalkieExample.png)
+![Synchronized Chat Example](./syncChatExample.png)
 
 ## Looking to help?
 
