@@ -1,5 +1,7 @@
 package syncChat;
 
+import utils.ColorPrinter;
+
 import java.net.*;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -82,17 +84,17 @@ public class Server implements Runnable {
             try {
                 in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 out = new PrintWriter(client.getOutputStream(), true);
-                out.println(
-                        "This chat system is like discord DM, you and other users get to send messages to each other. Send \""
-                                + endCodeWord + "\" to end the session anytime!\nPlease enter your username: ");
+                out.println(ColorPrinter.printf("$YELLOW_BRIGHT{This chat system is like group chat, you and other users get to send messages to each other.} \nSend $PURPLE_BOLD_BRIGHT{\""
+                                + endCodeWord + "\"} to end the session anytime!\n$CYAN_BOLD_BRIGHT{Please enter your username:} ")
+                        );
                 String inpName = in.readLine();
                 while (!validNickname(inpName)) {
-                    out.println("Please enter your username: ");
+                    out.println(ColorPrinter.printf("$CYAN_BOLD_BRIGHT{Please enter your username: }"));
                     inpName = in.readLine();
                 }
                 username = inpName;
-                System.out.println(username + " has connected");
-                broadcast(username + " has joined the chat!");
+                System.out.println(ColorPrinter.printf("$YELLOW_BRIGHT{" + username + "}") + " has connected");
+                broadcast(ColorPrinter.printf("$YELLOW_BRIGHT{" + username + "}") + " has joined the chat!");
                 // The main loop
                 String message;
                 while ((message = in.readLine()) != null) {
@@ -100,7 +102,7 @@ public class Server implements Runnable {
                     if (message.startsWith("\\")) {
                         handleCommands(message);
                     }
-                    broadcast(username + ": " + message);
+                    broadcast(ColorPrinter.printf("$YELLOW_BRIGHT{" + username + "}") + ": " + message);
                 }
             } catch (IOException e) {
                 // TODO handle IOException
